@@ -94,5 +94,4 @@ Está aberto a colaborações! Caso tenha ideias, sugestões ou melhorias, envie
   <strong>&copy; 2025 - Todos os direitos reservados</strong>
 </p>
 
-  <strong>&copy; 2025 - Todos os direitos reservados</strong>
-</p>
+ 
