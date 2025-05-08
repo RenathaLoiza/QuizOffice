@@ -85,6 +85,7 @@ Está aberto a colaborações! Caso tenha ideias, sugestões ou melhorias, envie
 **Renatha Loiza Monteiro e Silva**  
 📧 renatha.loiza@hotmail.com  
 🌐 [LinkedIn](https://www.linkedin.com/in/renatha-loiza-monteiro-e-silva)
+🌐 [link para o quiz](https://renathaloiza.github.io/QuizOffice/)
 
 ---
 
