@@ -83,7 +83,7 @@ Está aberto a colaborações! Caso tenha ideias, sugestões ou melhorias, envie
 
 ## 📬 Contato
 **Renatha Loiza Monteiro e Silva**  
-📧 renatha.loiza@email.com *(exemplo)*  
+📧 renatha.loiza@hotmail.com  
 🌐 [LinkedIn](https://www.linkedin.com/in/renatha-loiza-monteiro-e-silva)
 
 ---
