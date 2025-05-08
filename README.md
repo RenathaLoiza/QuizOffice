@@ -1,4 +1,3 @@
-# QuizOffice
 <p align="center">
   <img src="https://i.pinimg.com/originals/53/3e/39/533e3907942c1ae4ff66c72964edc161.png" alt="Logo Quiz Office" width="280" />
 </p>
