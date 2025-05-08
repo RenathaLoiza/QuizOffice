@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUIZ Planner</title>
+    <link rel="icon" href="https://tse2.mm.bing.net/th?id=OIP.MuT9UvF1TZActoHYdMpMIAHaHa&pid=Api&P=0&h=180">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .barra-tarefas {
+            background-color: #FF7F50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .barra-tarefas a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* max-width: 800px;*/
+            margin: auto;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #FF7F50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="barra-tarefas">
+            <a href="index.html">Início</a>
+            <a href="quizWord.html">Word</a>
+            <a href="quizExcel.html">Excel</a>
+            <a href="quizPowerPoint.html">PowerPoint</a>
+            <a href="quizPlanner.html">Planner</a>
+            <a href="quizTeams.html">Teams</a>
+            <a href="quizSharePoint.html">SharePoint</a>
+            <a href="quizOutlook.html">Outlook</a>
+            <a href="quizOneDrive.html">OneDrive</a>
+
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h2>Quiz Interativo - Planner Online</h2>
+        <div id="quiz"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "Qual é a principal finalidade do Microsoft Planner?",
+                opcoes: [
+                    "(a) Gerenciar e-mails e calendários pessoais.<br>",
+                    "(b) Organizar tarefas e projetos em quadros visuais. <br>",
+                    "(c) Criar apresentações e documentos de texto colaborativos.<br>",
+                    "(d) Realizar videoconferências e chats em equipe.<br>"
+                ],
+                correta: 1,
+                feedback: "✅ O Planner é uma ferramenta de gerenciamento de tarefas que utiliza quadros no estilo Kanban para organizar e acompanhar o progresso do trabalho."
+            },
+            {
+                pergunta: "No Planner, como são chamados os contêineres onde as tarefas são organizadas dentro de um plano? ",
+                opcoes: [
+                    "(a) Seções  <br>",
+                    "(b) Baldes  <br>",
+                    "(c) Listas  <br>",
+                    "(d) Categorias <br>"
+                ],
+                correta: 1,
+                feedback: "✅ 'Baldes' são as colunas dentro de um quadro do Planner que representam diferentes estágios ou categorias de tarefas."
+            },
+            {
+                pergunta: "O que você precisa fazer primeiro para começar a usar o Microsoft Planner para um novo projeto?",
+                opcoes: [
+                    "(a) Adicionar membros à equipe. <br>",
+                    "(b) Criar um novo plano. <br>",
+                    "(c) Definir as datas de conclusão das tarefas. <br>",
+                    "(d) Escolher um modelo de quadro. <br>"
+                ],
+                correta: 1,
+                feedback: "✅  Antes de adicionar tarefas ou membros, é necessário criar um plano que servirá como o espaço de trabalho para o projeto."
+            },
+            {
+                pergunta: "Qual informação essencial você pode adicionar a um cartão de tarefa no Planner?",
+                opcoes: [
+                    "(a) Apenas o título da tarefa. <br>",
+                    "(b) Apenas a data de conclusão.<br>",
+                    "(c) Título, responsável, data de conclusão, prioridade e anexos.<br>",
+                    "(d) Apenas comentários e histórico de alterações.<br>"
+                ],
+                correta: 2,
+                feedback: "✅Os cartões de tarefa no Planner permitem detalhar as tarefas com diversas informações importantes para o seu gerenciamento."
+            },
+            {
+                pergunta: " Como você atribui uma tarefa a um membro da equipe no Planner?",
+                opcoes: [
+                    "(a) Enviando um e-mail com a descrição da tarefa.<br>",
+                    "(b) Selecionando o cartão da tarefa e adicionando o membro ao campo 'Atribuído a'. <br>",
+                    "(c) Mencionando o membro em um comentário da tarefa.<br>",
+                    "(d) Criando um novo balde com o nome do membro.<br>"
+                ],
+                correta: 1,
+                feedback: "✅ A atribuição de um membro garante que a responsabilidade pela conclusão da tarefa seja claramente definida."
+            },
+            {
+                pergunta: "O que indica a visualização de 'Gráficos' no Planner? ",
+                opcoes: [
+                    "(a) O histórico de alterações das tarefas. <br>",
+                    "(b) O status geral das tarefas, como quantas estão concluídas, em andamento, atrasadas, etc. <br>",
+                    "(c) A comunicação entre os membros da equipe.<br>",
+                    "(d) Os arquivos anexados às tarefas. <br>"
+                ],
+                correta: 1,
+                feedback: "✅ A visualização de 'Gráficos' oferece uma representação visual do progresso do plano, facilitando a identificação de gargalos e o acompanhamento geral."
+            },
+            {
+                pergunta: "É possível adicionar arquivos diretamente aos cartões de tarefa no Planner? ",
+                opcoes: [
+                    "(a) Sim.<br>",
+                    "(b) Não, é necessário compartilhar links para os arquivos.<br>",
+                    "(c) Apenas imagens podem ser adicionadas.<br>",
+                    "(d) Apenas arquivos do Microsoft Office podem ser adicionados.<br>"
+                ],
+                correta: 0,
+                feedback: "✅ A possibilidade de anexar arquivos diretamente às tarefas facilita o acesso rápido aos materiais de referência necessários para a sua conclusão."
+            },
+            {
+                pergunta: "Qual recurso do Planner permite categorizar visualmente as tarefas com cores diferentes",
+                opcoes: [
+                    "(a) Prioridades <br>",
+                    "(b) Rótulos <br>",
+                    "(c) Baldes <br>",
+                    "(d) Listas de verificação <br>"
+                ],
+                correta: 1,
+                feedback: "✅  Os 'Rótulos' são etiquetas coloridas que podem ser aplicadas às tarefas para criar categorias visuais e facilitar a identificação de tipos de trabalho ou status específicos."
+            },
+            {
+                pergunta: "Como você pode acompanhar o progresso de uma tarefa individual no Planner?",
+                opcoes: [
+                    "(a) Apenas pela data de conclusão.<br>",
+                    "(b) Apenas pelos comentários na tarefa.<br>",
+                    "(c) Alterando o status da tarefa (Não Iniciado, Em Andamento, Concluído) e utilizando a lista de verificação.<br>",
+                    "(d) Apenas pela pessoa atribuída à tarefa.<br>"
+                ],
+                correta: 2,
+                feedback: "✅ O status e a lista de verificação dentro de um cartão de tarefa permitem acompanhar o avanço individual de cada item de trabalho."
+            },
+            {
+                pergunta: " Onde os planos do Microsoft Planner são geralmente associados?",
+                opcoes: [
+                    "(a) Aos seus documentos pessoais no OneDrive.<br>",
+                    "(b) Aos Grupos do Microsoft 365. <br>",
+                    "(c) Ao seu calendário pessoal no Outlook.<br>",
+                    "(d) À sua lista de tarefas no Microsoft To Do.<br>"
+                ],
+                correta: 1,
+                feedback: "✅O Planner está integrado ao ecossistema do Microsoft 365, e seus planos são frequentemente vinculados a Grupos, facilitando a colaboração entre os membros do grupo."
+            },
+            {
+                pergunta: "É possível receber notificações por e-mail sobre as atividades no Planner?",
+                opcoes: [
+                    "(a) Sim, dependendo das configurações do plano e do usuário. <br>",
+                    "(b) Não, as notificações são apenas dentro da plataforma.<br>",
+                    "(c) Apenas administradores recebem notificações. <br>",
+                    "(d) As notificações por e-mail são um recurso pago adicional.<br>"
+                ],
+                correta: 0,
+                feedback: "✅ O Planner oferece opções de notificação para manter os membros da equipe informados sobre as atualizações e o progresso das tarefas."
+            },
+            {
+                pergunta: "Qual visualização no Planner permite ver as tarefas organizadas por responsável? ",
+                opcoes: [
+                    "(a) Quadro <br>",
+                    "(b) Gráficos <br>",
+                    "(c) Agendamento <br>",
+                    "(d) Baldes <br>"
+                ],
+                correta: 2,
+                feedback: "✅ A visualização de 'Agendamento' oferece diferentes maneiras de organizar as tarefas, incluindo por responsável, facilitando a visão da carga de trabalho de cada membro."
+            },
+            {
+                pergunta: "O que é possível fazer com a funcionalidade de 'Lista de Verificação' dentro de um cartão de tarefa? ",
+                opcoes: [
+                    "(a) Adicionar comentários longos e detalhados. <br>",
+                    "(b) Anexar arquivos grandes. <br>",
+                    "(c) Dividir a tarefa em subtarefas menores e acompanhar sua conclusão individual.<br>",
+                    "(d) Alterar a prioridade da tarefa.<br>"
+                ],
+                correta: 2,
+                feedback: "✅ A lista de verificação ajuda a decompor tarefas complexas em etapas menores e a monitorar o progresso de cada uma delas."
+            },
+            {
+                pergunta: " É possível integrar o Microsoft Planner com outras ferramentas do Microsoft 365?  ",
+                opcoes: [
+                    "(a) Sim, como o Teams e o Outlook.<br>",
+                    "(b) Não, o Planner é uma ferramenta isolada. <br>",
+                    "(c) A integração é limitada a ferramentas de terceiros. <br>",
+                    "(d) Apenas a integração com o Excel é possível. <br>"
+                ],
+                correta: 0,
+                feedback: "✅  A integração com outras ferramentas do Microsoft 365, como o Teams para comunicação e o Outlook para calendário, otimiza o fluxo de trabalho."
+            },
+            {
+                pergunta: "Se você excluir um balde no Planner, o que acontece com as tarefas dentro desse balde? ",
+                opcoes: [
+                    "(a) As tarefas são automaticamente excluídas permanentemente. <br>",
+                    "(b) As tarefas são movidas para o balde 'Tarefas não atribuídas'. <br>",
+                    "(c) As tarefas são distribuídas aleatoriamente para outros baldes. <br>",
+                    "(d) As tarefas são arquivadas. <br>"
+                ],
+                correta: 0,
+                feedback: "✅Ao excluir um balde, as tarefas contidas nele são movidas para o balde 'Tarefas não atribuídas', permitindo que você as reorganize em outros baldes, evitando a perda de informações."
+
+            },
+
+
+
+        ];
+
+        let indiceAtual = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = "<p>🎉 Você concluiu o quiz!</p>";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        let acertos = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+                acertos++;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = `<p>🎉 Você concluiu o quiz!<br>Acertos: ${acertos} de ${perguntas.length}<br>Pontuação: ${Math.round((acertos / perguntas.length) * 100)}%</p>`;
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        carregarPergunta();
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <footer class="footer">
+        <p>&copy; Desenvolvedora Renatha Loiza Monteiro e Silva.</p>
+        <p><span id="year">2025.</span></p>
+    </footer>
+</body>
+
+</html>

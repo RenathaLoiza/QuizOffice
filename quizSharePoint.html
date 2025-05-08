@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUIZ SharePoint</title>
+    <link rel="icon" href="https://tse2.mm.bing.net/th?id=OIP.MuT9UvF1TZActoHYdMpMIAHaHa&pid=Api&P=0&h=180">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .barra-tarefas {
+            background-color: #FF7F50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .barra-tarefas a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* max-width: 800px;*/
+            margin: auto;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #FF7F50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="barra-tarefas">
+            <a href="index.html">Início</a>
+            <a href="quizWord.html">Word</a>
+            <a href="quizExcel.html">Excel</a>
+            <a href="quizPowerPoint.html">PowerPoint</a>
+            <a href="quizPlanner.html">Planner</a>
+            <a href="quizTeams.html">Teams</a>
+            <a href="quizSharePoint.html">SharePoint</a>
+            <a href="quizOutlook.html">Outlook</a>
+            <a href="quizOneDrive.html">OneDrive</a>
+
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h2>Quiz Interativo - SharePoint Online</h2>
+        <div id="quiz"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "Qual é o principal propósito do Microsoft SharePoint?",
+                opcoes: [
+                    "(a) Editar planilhas e documentos de texto.<br>",
+                    "(b) Gerenciar e-mails e calendários.<br>",
+                    "(c) Colaboração, gerenciamento de documentos e intranet.<br>",
+                    "(d) Desenvolvimento de software e aplicativos web.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ O SharePoint é uma plataforma versátil focada em colaboração de equipes, organização e compartilhamento de documentos, e criação de intranets corporativas."
+            },
+            {
+                pergunta: "O que é um 'site de equipe' no SharePoint?",
+                opcoes: [
+                    "(a) Um site público para divulgação da empresa.<br>",
+                    "(b) Um espaço colaborativo para um grupo específico de pessoas trabalharem juntas em projetos e documentos.<br>",
+                    "(c) Um repositório pessoal de arquivos para um único usuário.<br>",
+                    "(d) Uma ferramenta para criar apresentações de slides.<br>",
+
+                ],
+                correta: 1,
+                feedback: "✅Sites de equipe são projetados para facilitar a colaboração e o compartilhamento de informações entre membros de uma equipe."
+            },
+            {
+                pergunta: "O que são 'listas' no SharePoint?",
+                opcoes: [
+                    "(a) Coleções de documentos armazenados em um site.<br>",
+                    "(b) Formas de rastrear e gerenciar informações em formato de tabela.<br>",
+                    "(c) Páginas web personalizáveis com conteúdo dinâmico.<br>",
+                    "(d) Ferramentas para automatizar processos de negócios.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅As listas do SharePoint permitem organizar dados de forma estruturada, similar a planilhas, com recursos adicionais para colaboração e gerenciamento."
+            },
+            {
+                pergunta: "Qual é a função principal de uma 'biblioteca de documentos' no SharePoint?",
+                opcoes: [
+                    "(a) Armazenar, organizar e compartilhar arquivos.<br>",
+                    "(b) Gerenciar tarefas e prazos de projetos.<br>",
+                    "(c) Criar formulários personalizados para coleta de dados.<br>",
+                    "(d) Publicar notícias e comunicados para os usuários.<br>"
+
+                ],
+                correta: 0,
+                feedback: "✅As bibliotecas de documentos são repositórios centrais para armazenar e gerenciar arquivos, oferecendo recursos como controle de versão e check-in/check-out."
+            },
+            {
+                pergunta: "O que são 'Web Parts' no SharePoint?",
+                opcoes: [
+                    "(a) Aplicativos móveis para acessar o SharePoint.<br>",
+                    "(b) Modelos pré-definidos para criar sites rapidamente.<br>",
+                    "(c) Componentes modulares que podem ser adicionados às páginas para exibir conteúdo e funcionalidades.<br>",
+                    "(d) Ferramentas de segurança para proteger o acesso ao SharePoint.<br>"
+
+
+                ],
+                correta: 2,
+                feedback: "✅ Web Parts são blocos de construção reutilizáveis que permitem personalizar o conteúdo e a funcionalidade das páginas do SharePoint."
+            },
+            {
+                pergunta: "Qual recurso do SharePoint permite automatizar processos de negócios?",
+                opcoes: [
+                    "(a) Listas personalizadas.<br>",
+                    "(b) Bibliotecas de documentos.<br>",
+                    "(c) Fluxos de trabalho (Workflows).<br>",
+                    "(d) Alertas e notificações.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅Os workflows permitem definir sequências de ações automatizadas em resposta a eventos no SharePoint, como a aprovação de um documento."
+            },
+            {
+                pergunta: "O que é 'controle de versão' em uma biblioteca de documentos do SharePoint?",
+                opcoes: [
+                    "(a) A capacidade de restringir o acesso a documentos específicos.<br>",
+                    "(b) O rastreamento e armazenamento de diferentes versões de um arquivo ao longo do tempo.<br>",
+                    "(c) A funcionalidade de comparar dois documentos lado a lado.<br>",
+                    "(d) A criptografia de arquivos para maior segurança.<br>"
+
+                ],
+                correta: 1,
+                feedback: "✅ O controle de versão garante que as alterações nos documentos sejam rastreadas e que versões anteriores possam ser restauradas, se necessário."
+            },
+            {
+                pergunta: "Qual recurso do SharePoint permite enviar notificações automáticas quando um item é alterado?",
+                opcoes: [
+                    "(a) Permissões de acesso.<br>",
+                    "(b) Metadados.<br>",
+                    "(c) Alertas.<br>",
+                    "(d) Check-in/Check-out.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ Os alertas permitem que os usuários sejam notificados por e-mail ou SMS quando documentos ou itens de lista são adicionados, modificados ou excluídos."
+            },
+            {
+                pergunta: "O que são 'metadados' em uma biblioteca ou lista do SharePoint?",
+                opcoes: [
+                    "(a) Informações adicionais sobre um documento ou item que ajudam a organizar e pesquisar o conteúdo.<br>",
+                    "(b) O conteúdo principal de um documento.<br>",
+                    "(c) As permissões de acesso definidas para um item.<br>",
+                    "(d) O histórico de edições de um arquivo.<br>"
+
+                ],
+                correta: 0,
+                feedback: "✅ Metadados, como autor, data de criação ou status, enriquecem o conteúdo e facilitam a sua localização e filtragem."
+            },
+            {
+
+                pergunta: "Qual é a diferença principal entre um site de equipe e um site de comunicação no SharePoint?",
+                opcoes: [
+                    "(a) Sites de equipe são focados na colaboração de um grupo, enquanto sites de comunicação são para disseminar informações para um público maior.<br>",
+                    "(b) Sites de equipe são mais seguros que sites de comunicação.<br>",
+                    "(c) Sites de comunicação podem armazenar mais documentos que sites de equipe.<br>",
+                    "(d) Sites de equipe usam um design diferente de sites de comunicação.<br>"
+
+                ],
+                correta: 0,
+                feedback: "✅ Sites de equipe são colaborativos e interativos, enquanto sites de comunicação são mais estáticos e informativos."
+            },
+            {
+                pergunta: "O que é o 'SharePoint Online'?",
+                opcoes: [
+                    "(a) Uma versão gratuita e limitada do SharePoint.<br>",
+                    "(b) A versão do SharePoint hospedada na nuvem como parte do Microsoft 365.<br>",
+                    "(c) Uma versão do SharePoint projetada para dispositivos móveis.<br>",
+                    "(d) Um software para instalar e gerenciar servidores SharePoint locais.<br>"
+
+                ],
+                correta: 1,
+                feedback: "✅O SharePoint Online oferece os recursos do SharePoint como um serviço baseado na nuvem, gerenciado pela Microsoft."
+            },
+            {
+                pergunta: "Qual recurso do SharePoint permite restringir o acesso a determinados conteúdos para usuários específicos?",
+                opcoes: [
+                    "(a) Permissões.<br>",
+                    "(b) Visualizações.<br>",
+                    "(c) Colunas.<br>",
+                    "(d) Temas.<br>"
+
+                ],
+                correta: 0,
+                feedback: "✅ As permissões definem quem pode visualizar, editar ou gerenciar o conteúdo do SharePoint em diferentes níveis (site, lista, item)."
+            },
+            {
+                pergunta: "O que são 'visualizações' em uma lista ou biblioteca do SharePoint?",
+                opcoes: [
+                    "(a) Diferentes layouts para a página inicial do site.<br>",
+                    "(b) Formas personalizadas de exibir e filtrar os itens da lista ou biblioteca.<br>",
+                    "(c) Gráficos gerados a partir dos dados da lista.<br>",
+                    "(d) Atalhos para outros sites ou documentos.<br>"
+
+                ],
+                correta: 1,
+                feedback: "✅ As visualizações permitem organizar e apresentar os dados de forma específica, mostrando apenas as informações relevantes para cada usuário ou situação."
+            },
+            {
+                pergunta: " Qual ferramenta da Microsoft é frequentemente usada para criar e gerenciar fluxos de trabalho (workflows) no SharePoint?",
+                opcoes: [
+                    "(a) Microsoft Word.<br>",
+                    "(b) Microsoft Excel.<br>",
+                    "(c) Power Automate (anteriormente Microsoft Flow).<br>",
+                    "(d) Microsoft PowerPoint.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ O Power Automate é uma plataforma de automação que se integra perfeitamente com o SharePoint para criar fluxos de trabalho complexos e personalizados."
+            },
+
+        ];
+
+        let indiceAtual = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = "<p>🎉 Você concluiu o quiz!</p>";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        let acertos = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+                acertos++;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = `<p>🎉 Você concluiu o quiz!<br>Acertos: ${acertos} de ${perguntas.length}<br>Pontuação: ${Math.round((acertos / perguntas.length) * 100)}%</p>`;
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        carregarPergunta();
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <footer class="footer">
+        <p>&copy; Desenvolvedora Renatha Loiza Monteiro e Silva.</p>
+        <p><span id="year">2025.</span></p>
+    </footer>
+</body>
+
+</html>

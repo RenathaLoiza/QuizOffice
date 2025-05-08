@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUIZ Outlook</title>
+    <link rel="icon" href="https://tse2.mm.bing.net/th?id=OIP.MuT9UvF1TZActoHYdMpMIAHaHa&pid=Api&P=0&h=180">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .barra-tarefas {
+            background-color: #FF7F50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .barra-tarefas a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* max-width: 800px;*/
+            margin: auto;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #FF7F50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="barra-tarefas">
+            <a href="index.html">Início</a>
+            <a href="quizWord.html">Word</a>
+            <a href="quizExcel.html">Excel</a>
+            <a href="quizPowerPoint.html">PowerPoint</a>
+            <a href="quizPlanner.html">Planner</a>
+            <a href="quizTeams.html">Teams</a>
+            <a href="quizSharePoint.html">SharePoint</a>
+            <a href="quizOutlook.html">Outlook</a>
+            <a href="quizOneDrive.html">OneDrive</a>
+
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h2>Quiz Interativo - Outlook Online</h2>
+        <div id="quiz"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "Qual é a principal finalidade do Microsoft Outlook? ",
+                opcoes: [
+                    "(a) Gerenciar e-mails, calendários, contatos e tarefas.<br>",
+                    " (b) Criar apresentações de slides dinâmicas.<br>",
+                    " (c) Analisar dados numéricos em planilhas.<br>",
+                    " (d) Armazenar arquivos na nuvem e sincronizá-los entre dispositivos.<br>"
+                ],
+                correta: 0,
+                feedback: "✅O Outlook é um aplicativo de gerenciamento de informações pessoais que integra e-mail, calendário, contatos e tarefas em um único lugar."
+            },
+            {
+                pergunta: "Qual seção principal do Outlook é usada para ler, enviar e organizar seus e-mails? ",
+                opcoes: [
+                    "(a) Correio <br>",
+                    "(b) Calendário <br>",
+                    "(c) Pessoas <br>",
+                    "(d) Tarefas <br>"
+                ],
+                correta: 0,
+                feedback: "✅ A seção 'Correio' é o foco principal para o gerenciamento de mensagens eletrônicas no Outlook."
+
+            },
+            {
+                pergunta: "Como você inicia a criação de um novo e-mail no Outlook? ",
+                opcoes: [
+                    "(a) Clicando em 'Arquivo' > 'Novo' > 'Documento de Texto'.<br>",
+                    "(b) Clicando no botão 'Responder' em um e-mail existente. <br>",
+                    "(c) Clicando no botão 'Novo E-mail' ou 'Nova Mensagem'. <br>",
+                    "(d) Arrastando um contato para a caixa de entrada. <br>"
+                ],
+                correta: 2,
+                feedback: "✅ O botão 'Novo E-mail' ou 'Nova Mensagem' inicia a janela de composição de um novo e-mail."
+
+            },
+            {
+                pergunta: "Quais são os campos de destinatário primários ao enviar um e-mail? ",
+                opcoes: [
+                    "(a) Assunto e Corpo. <br>",
+                    "(b) Anexo e Opções. <br>",
+                    "(c) Para, Cc e Cco. <br>",
+                    "(d) De e Enviado. <br>"
+                ],
+                correta: 2,
+                feedback: "✅  Os campos 'Para' (destinatário principal), 'Cc' (cópia carbono) e 'Cco' (cópia carbono oculta) definem para quem o e-mail será enviado."
+
+
+            },
+            {
+                pergunta: "Qual campo permite adicionar outras pessoas que devem estar cientes do e-mail, mas não são os destinatários principais? ",
+                opcoes: [
+                    "(a) Para <br>",
+                    "(b) Cc (Cópia Carbono) <br>",
+                    "(c) Cco (Cópia Carbono Oculta) <br>",
+                    "(d) Assunto <br>"
+                ],
+                correta: 1,
+                feedback: "✅  O campo 'Cc' permite incluir destinatários em cópia, cujos endereços serão visíveis para todos os outros destinatários."
+
+
+            },
+            {
+                pergunta: "Qual campo permite adicionar destinatários de forma que seus endereços de e-mail não sejam visíveis para os outros destinatários?",
+                opcoes: [
+                    "(a) Para <br>",
+                    "(b) Cc (Cópia Carbono) <br>",
+                    "(c) Cco (Cópia Carbono Oculta) <br>",
+                    "(d) Assunto <br>"
+                ],
+                correta: 1,
+                feedback: "✅ O campo 'Cco' é usado para enviar cópias discretas, protegendo a privacidade dos endereços de e-mail dos destinatários incluídos ali."
+
+            },
+            {
+                pergunta: "Como você adiciona um arquivo a um e-mail no Outlook? ",
+                opcoes: [
+                    "(a) Copiando e colando o arquivo no corpo do e-mail.<br>",
+                    "(b) Arrastando o arquivo diretamente para a janela do e-mail. <br>",
+                    "(c) Clicando no botão 'Anexar Arquivo' (geralmente um ícone de clipe de papel). <br>",
+                    "(d) Digitando o caminho do arquivo no campo 'Assunto'.<br>"
+                ],
+                correta: 2,
+                feedback: "✅ O botão 'Anexar Arquivo' permite selecionar e incluir arquivos no seu e-mail."
+
+            },
+            {
+                pergunta: " Onde os e-mails que você começa a escrever, mas não envia imediatamente, são geralmente salvos? ",
+                opcoes: [
+                    "(a) Caixa de Entrada <br>",
+                    "(b) Itens Enviados <br>",
+                    "(c) Rascunhos <br>",
+                    "(d) Lixeira <br>"
+                ],
+                correta: 2,
+                feedback: "✅  A pasta 'Rascunhos' armazena e-mails que foram salvos antes de serem enviados, permitindo que você continue a edição posteriormente."
+
+
+            },
+            {
+                pergunta: "Qual seção principal do Outlook é usada para agendar reuniões e compromissos? ",
+                opcoes: [
+                    "(a) Correio <br>",
+                    "(b) Calendário <br>",
+                    "(c) Pessoas <br>",
+                    "(d) Tarefas <br>"
+                ],
+                correta: 1,
+                feedback: "✅ A seção 'Calendário' permite visualizar, criar e gerenciar seus eventos e compromissos."
+            },
+            {
+                pergunta: "Como você cria um novo evento ou compromisso no Calendário do Outlook? ",
+                opcoes: [
+                    "(a) Arrastando um e-mail para a visualização do calendário.<br>",
+                    "(b) Clicando no botão 'Responder' em um evento existente. <br>",
+                    "(c) Clicando no botão 'Novo Compromisso' ou 'Novo Evento'.<br>",
+                    "(d) Digitando a data e hora diretamente na visualização do calendário.<br>"
+                ],
+                correta: 2,
+                feedback: "✅O botão 'Novo Compromisso' ou 'Novo Evento' abre a janela para inserir os detalhes do seu agendamento."
+
+            },
+            {
+                pergunta: "Qual seção principal do Outlook é usada para gerenciar sua lista de contatos?  ",
+                opcoes: [
+                    "(a) Correio <br>",
+                    "(b) Calendário <br>",
+                    "(c) Pessoas <br>",
+                    "(d) Tarefas <br>"
+                ],
+                correta: 2,
+                feedback: "✅O botão 'Novo Compromisso' ou 'Novo Evento' abre a janela para inserir os detalhes do seu agendamento."
+
+
+            },
+            {
+                pergunta: "Qual seção principal do Outlook é usada para criar e acompanhar itens a serem feitos?",
+                opcoes: [
+                    "(a) Correio <br>",
+                    "(b) Calendário <br>",
+                    "(c) Pessoas <br>",
+                    "(d) Tarefas <br>"
+                ],
+                correta: 2,
+                feedback: "✅A seção 'Tarefas' permite criar listas de afazeres, definir prazos e acompanhar o progresso."
+
+            },
+            {
+                pergunta: "O que são 'Pastas' no Outlook? ",
+                opcoes: [
+                    "(a) Apenas a Caixa de Entrada e a Caixa de Saída.<br>",
+                    "(b) Apenas os itens marcados como importantes.<br>",
+                    "(c) Contêineres para organizar seus e-mails, contatos, tarefas e outros itens do Outlook. <br>",
+                    "(d) Apenas os arquivos anexados aos e-mails.<br>"
+                ],
+                correta: 2,
+                feedback: "✅Pastas são usadas para estruturar e categorizar seus dados dentro do Outlook, facilitando a organização e a busca."
+
+            },
+            {
+                pergunta: "Como você marca um e-mail como importante no Outlook?",
+                opcoes: [
+                    "(a) Excluindo o e-mail e restaurando-o da Lixeira.<br>",
+                    "(b) Movendo o e-mail para a pasta 'Itens Enviados'. <br>",
+                    "(c) Usando o ícone de sinalizador ou marcando o e-mail para acompanhamento.<br>",
+                    "(d) Respondendo ao e-mail com alta prioridade.<br>"
+                ],
+                correta: 2,
+                feedback: "✅A marcação com um sinalizador ou a definição de prioridade alta ajuda a destacar e lembrar de e-mails importantes."
+
+            },
+            {
+                pergunta: " O que acontece com os e-mails que você exclui no Outlook?",
+                opcoes: [
+                    "(a) São excluídos permanentemente de imediato.<br>",
+                    "(b) São movidos para a pasta 'Lixeira' (ou 'Itens Excluídos'). <br>",
+                    "(c) São automaticamente arquivados. <br>",
+                    "(d) São marcados como lidos.<br>"
+                ],
+                correta: 1,
+                feedback: "✅A pasta 'Lixeira' armazena os e-mails excluídos, permitindo que você os recupere caso necessário, antes da exclusão permanente."
+            },
+
+
+        ];
+
+        let indiceAtual = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = "<p>🎉 Você concluiu o quiz!</p>";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+        let acertos = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+                acertos++;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = `<p>🎉 Você concluiu o quiz!<br>Acertos: ${acertos} de ${perguntas.length}<br>Pontuação: ${Math.round((acertos / perguntas.length) * 100)}%</p>`;
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        carregarPergunta();
+
+        // Iniciar quiz
+        //carregarPergunta();
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <footer class="footer">
+        <p>&copy; Desenvolvedora Renatha Loiza Monteiro e Silva.</p>
+        <p><span id="year">2025.</span></p>
+    </footer>
+</body>
+
+</html>

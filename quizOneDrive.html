@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUIZ OneDrive</title>
+    <link rel="icon" href="https://tse2.mm.bing.net/th?id=OIP.MuT9UvF1TZActoHYdMpMIAHaHa&pid=Api&P=0&h=180">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .barra-tarefas {
+            background-color: #FF7F50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .barra-tarefas a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* max-width: 800px;*/
+            margin: auto;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #FF7F50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="barra-tarefas">
+            <a href="index.html">Início</a>
+            <a href="quizWord.html">Word</a>
+            <a href="quizExcel.html">Excel</a>
+            <a href="quizPowerPoint.html">PowerPoint</a>
+            <a href="quizPlanner.html">Planner</a>
+            <a href="quizTeams.html">Teams</a>
+            <a href="quizSharePoint.html">SharePoint</a>
+            <a href="quizOutlook.html">Outlook</a>
+            <a href="quizOneDrive.html">OneDrive</a>
+
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h2>Quiz Interativo - OneDrive Online</h2>
+        <div id="quiz"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: " Qual é a principal finalidade do Microsoft OneDrive?",
+                opcoes: [
+                    "(a) Armazenar arquivos na nuvem e sincronizá-los entre dispositivos.<br>",
+                    "(b) Gerenciar e-mails e calendários pessoais. <br>",
+                    "(c) Editar fotos e vídeos profissionalmente.<br>",
+                    "(d) Criar apresentações e documentos de texto colaborativos em tempo real.<br>"
+                ],
+                correta: 0,
+                feedback: "✅ O OneDrive oferece um espaço de armazenamento online para seus arquivos, permitindo acesso de qualquer dispositivo conectado à internet e a sincronização automática das alterações"
+            },
+            {
+                pergunta: " Qual o benefício primário de armazenar seus arquivos no OneDrive em vez de apenas no seu computador local?",
+                opcoes: [
+                    "(a) Aumenta a velocidade de processamento do seu computador. <br>",
+                    "(b) Melhora a qualidade das suas fotos. <br>",
+                    "(c) Permite acessar seus arquivos de qualquer dispositivo e oferece proteção contra perda de dados locais.<br>",
+                    "(d) Organiza automaticamente seus arquivos em pastas temáticas. <br>"
+                ],
+                correta: 2,
+                feedback: "✅  O armazenamento na nuvem garante a acessibilidade dos seus arquivos de múltiplos locais e dispositivos, além de fornecer uma camada de segurança contra falhas de hardware ou outros imprevistos."
+
+            },
+            {
+                pergunta: "Como você pode compartilhar um arquivo ou pasta armazenado no seu OneDrive com outra pessoa? ",
+                opcoes: [
+                    "(a) Enviando o arquivo diretamente por e-mail como um anexo.<br>",
+                    "(b) Gerando um link de compartilhamento e enviando para a pessoa.<br>",
+                    "(c) Imprimindo o arquivo e entregando uma cópia física.<br>",
+                    "(d) Copiando o arquivo para um dispositivo de armazenamento externo e entregando-o.<br>"
+                ],
+                correta: 1,
+                feedback: "✅O compartilhamento por link permite controlar as permissões de acesso ao arquivo ou pasta e evita o envio de arquivos grandes por e-mail."
+
+            },
+            {
+                pergunta: "Quais são os principais tipos de permissões que você pode conceder ao compartilhar um arquivo ou pasta no OneDrive?",
+                opcoes: [
+                    "(a) Apenas visualizar ou apenas editar. <br>",
+                    "(b) Ler, comentar ou imprimir. <br>",
+                    "(c) Visualizar e/ou editar. <br>",
+                    "(d) Baixar, excluir ou renomear.<br>"
+                ],
+                correta: 2,
+                feedback: "✅As permissões básicas de compartilhamento geralmente se resumem à capacidade de apenas visualizar o conteúdo ou também poder editá-lo."
+
+            },
+            {
+
+                pergunta: "O que acontece com os arquivos que você exclui do seu OneDrive?",
+                opcoes: [
+                    "(a) São excluídos permanentemente de imediato.  <br>",
+                    "(b) São movidos para a Lixeira (ou Reciclagem) do OneDrive, onde permanecem por um período antes da exclusão permanente.  <br>",
+                    "(c) São automaticamente arquivados para liberar espaço. <br>",
+                    "(d) São compartilhados publicamente.  <br>"
+                ],
+                correta: 1,
+                feedback: "✅A Lixeira do OneDrive oferece uma camada de segurança, permitindo recuperar arquivos excluídos acidentalmente dentro de um determinado prazo."
+
+            },
+            {
+                pergunta: "Como você pode acessar seus arquivos do OneDrive em um computador diferente do seu principal?",
+                opcoes: [
+                    "(a) Apenas através de um cabo USB. <br>",
+                    "(b) Apenas se o software OneDrive estiver instalado nesse computador.<br>",
+                    "(c) Através de um navegador web (onedrive.live.com) ou pelo aplicativo OneDrive instalado.<br>",
+                    "(d) Apenas se você tiver feito backup dos arquivos em um dispositivo externo. <br>"
+                ],
+                correta: 2,
+                feedback: "✅O OneDrive oferece flexibilidade de acesso através de diferentes métodos, seja pela interface web em qualquer navegador ou pelo aplicativo dedicado instalado em diversos sistemas operacionais."
+
+            },
+            {
+                pergunta: "O que significa quando um arquivo ou pasta no seu OneDrive tem um ícone de 'nuvem' ao lado do nome?",
+                opcoes: [
+                    "(a) O arquivo está sendo compactado para economizar espaço.<br>",
+                    "(b) O arquivo está disponível apenas online e ocupa pouco espaço no seu dispositivo local.<br>",
+                    "(c) O arquivo está sincronizado e disponível em todos os seus dispositivos. <br>",
+                    "(d) O arquivo foi compartilhado publicamente.<br>"
+                ],
+                correta: 2,
+                feedback: "✅ O ícone de nuvem indica o status de sincronização do arquivo, garantindo que as versões mais recentes estejam acessíveis em todos os seus dispositivos conectados."
+
+            },
+            {
+                pergunta: " É possível trabalhar offline em arquivos sincronizados do OneDrive?",
+                opçoopcoeses: [
+                    "(a) Sim, se os arquivos estiverem marcados como 'Manter sempre neste dispositivo'. <br>",
+                    "(b) Não, é necessária uma conexão constante com a internet. <br>",
+                    "(c) Apenas arquivos do Microsoft Office podem ser editados offline.<br>",
+                    "(d) A edição offline só é possível na versão paga do OneDrive. <br>"
+                ],
+                correta: 0,
+                feedback: "✅  A opção 'Manter sempre neste dispositivo' garante que uma cópia local do arquivo esteja disponível para acesso e edição mesmo sem conexão à internet, sendo sincronizada posteriormente.."
+            },
+            {
+                pergunta: "Qual recurso do OneDrive permite restaurar versões anteriores de um arquivo?",
+                opcoes: [
+                    "(a) Histórico de downloads. <br>",
+                    "(b) Registro de alterações do sistema.<br>",
+                    "(c) Histórico de versões.<br>",
+                    "(d) Ponto de restauração.<br>"
+                ],
+                correta: 2,
+                feedback: "✅O Histórico de versões é uma funcionalidade importante para rastrear e restaurar edições anteriores de um arquivo, protegendo contra erros ou alterações indesejadas."
+            },
+            {
+                pergunta: "Como você pode liberar espaço no seu computador sem excluir os arquivos do seu OneDrive? ",
+                opcoes: [
+                    "(a) Desativando a sincronização automática.<br>",
+                    "(b) Usando o recurso 'Liberar espaço' (Files On-Demand), que torna os arquivos disponíveis apenas online. <br>",
+                    "(c) Movendo os arquivos para a Lixeira do OneDrive.<br>",
+                    "(d) Desconectando sua conta do OneDrive. <br>"
+                ],
+                correta: 1,
+                feedback: "✅O Files On-Demand permite visualizar todos os seus arquivos do OneDrive no Explorador de Arquivos, mas eles só são baixados para o seu dispositivo quando você os abre, economizando espaço em disco."
+            },
+            {
+                pergunta: " O OneDrive oferece alguma forma de proteger arquivos confidenciais além da criptografia padrão?",
+                opcoes: [
+                    "(a) Sim, através de senhas individuais para cada arquivo. <br>",
+                    "(b) Sim, através do Cofre Pessoal, uma área protegida com autenticação adicional.<br>",
+                    "(c) Não, a criptografia padrão é a única proteção oferecida. <br>",
+                    "(d) A proteção adicional está disponível apenas para contas corporativas.<br>"
+                ],
+                correta: 1,
+                feedback: "✅ O Cofre Pessoal é uma camada extra de segurança dentro do OneDrive, exigindo uma etapa adicional de verificação de identidade para acessar os arquivos armazenados ali."
+            },
+            {
+                pergunta: "É possível compartilhar pastas inteiras no OneDrive, permitindo que outras pessoas adicionem e editem arquivos dentro delas (dependendo das permissões)? ",
+                opcoes: [
+                    "(a) Sim.<br>",
+                    "(b) Não, apenas arquivos individuais podem ser compartilhados.<br>",
+                    "(c) Compartilhamento de pastas só é possível com outros usuários da mesma organização.<br>",
+                    "(d) Compartilhamento de pastas requer uma assinatura paga adicional.<br>"
+                ],
+                correta: 0,
+                feedback: "✅  O compartilhamento de pastas facilita a colaboração em projetos, permitindo que múltiplos usuários trabalhem nos mesmos arquivos dentro de uma estrutura organizada."
+            },
+            {
+                pergunta: "O que acontece com os arquivos compartilhados com você por outras pessoas no OneDrive? Onde eles geralmente aparecem?",
+                opcoes: [
+                    "(a) Na sua pasta principal do OneDrive, misturados com seus arquivos.<br>",
+                    "(b) Em uma seção separada chamada 'Compartilhados' ou 'Compartilhados comigo'.<br>",
+                    "(c) São automaticamente baixados para o seu computador local.<br>",
+                    "(d) Você só pode acessá-los através do link de compartilhamento original.<br>"
+                ],
+                correta: 1,
+                feedback: "✅ A seção 'Compartilhados' organiza os arquivos e pastas que foram compartilhados com você, facilitando o acesso e a visualização desses itens."
+            },
+            {
+                pergunta: " O OneDrive se integra com outros aplicativos do Microsoft 365? Se sim, qual é um exemplo dessa integração?",
+                opcoes: [
+                    "(a) Sim, por exemplo, ao salvar um arquivo do Word online, ele é armazenado automaticamente no OneDrive.<br>",
+                    "(b) Não, o OneDrive é um aplicativo independente. <br>",
+                    "(c) A integração é limitada ao Outlook para anexar arquivos.<br>",
+                    "(d) A integração só funciona na versão web dos aplicativos.<br>"
+                ],
+                correta: 0,
+                feedback: "✅ A integração com outros aplicativos do Microsoft 365, como Word, Excel e PowerPoint, simplifica o fluxo de trabalho, permitindo salvar, abrir e compartilhar arquivos diretamente na nuvem."
+            },
+            {
+                pergunta: "Se você cancelar sua assinatura do Microsoft 365 que inclui armazenamento extra no OneDrive, o que pode acontecer com seus arquivos se eles excederem o limite gratuito?",
+                opcoes: [
+                    "(a) Seus arquivos serão automaticamente excluídos. <br>",
+                    "(b) Você pode perder o acesso aos arquivos que excedem o limite e precisará remover arquivos ou adquirir mais armazenamento para acessá-los novamente.<br>",
+                    "(c) Seus arquivos serão compactados automaticamente para caber no limite gratuito.<br>",
+                    "(d) Seus arquivos serão transferidos para um serviço de armazenamento gratuito diferente da Microsoft. <br>"
+                ],
+                correta: 0,
+                feedback: "✅ É importante estar ciente do limite de armazenamento do OneDrive, especialmente ao cancelar uma assinatura que oferecia espaço adicional, para evitar a perda de acesso aos seus arquivos."
+
+            },
+
+
+
+
+        ];
+
+        let indiceAtual = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = "<p>🎉 Você concluiu o quiz!</p>";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+        let acertos = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+                acertos++;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = `<p>🎉 Você concluiu o quiz!<br>Acertos: ${acertos} de ${perguntas.length}<br>Pontuação: ${Math.round((acertos / perguntas.length) * 100)}%</p>`;
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        carregarPergunta();
+
+        // Iniciar quiz
+        //carregarPergunta();
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <footer class="footer">
+        <p>&copy; Desenvolvedora Renatha Loiza Monteiro e Silva.</p>
+        <p><span id="year">2025.</span></p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUIZ Teams</title>
+    <link rel="icon" href="https://tse2.mm.bing.net/th?id=OIP.MuT9UvF1TZActoHYdMpMIAHaHa&pid=Api&P=0&h=180">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .barra-tarefas {
+            background-color: #FF7F50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .barra-tarefas a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* max-width: 800px;*/
+            margin: auto;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #FF7F50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="barra-tarefas">
+            <a href="index.html">Início</a>
+            <a href="quizWord.html">Word</a>
+            <a href="quizExcel.html">Excel</a>
+            <a href="quizPowerPoint.html">PowerPoint</a>
+            <a href="quizPlanner.html">Planner</a>
+            <a href="quizTeams.html">Teams</a>
+            <a href="quizSharePoint.html">SharePoint</a>
+            <a href="quizOutlook.html">Outlook</a>
+            <a href="quizOneDrive.html">OneDrive</a>
+
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h2>Quiz Interativo - Teams Online</h2>
+        <div id="quiz"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+        <div id="result"></div>
+    </div>
+
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "Qual é a principal finalidade do Microsoft Teams?  ",
+                opcoes: [
+                    "(a) Gerenciar e-mails pessoais. <br>",
+                    "(b) Facilitar a comunicação e colaboração entre equipes. <br>",
+                    "(c) Editar documentos offline. <br>",
+                    "(d) Navegar na internet. <br>"
+
+                ],
+                correta: 1,
+                feedback: "✅O Teams é uma plataforma unificada focada em comunicação, colaboração e trabalho em equipe, integrando diversas ferramentas em um só lugar."
+            },
+            {
+                pergunta: "Um 'canal' no Microsoft Teams é:",
+                opcoes: [
+                    "(a) Uma lista de contatos pessoais.<br>",
+                    "(b) Um espaço de armazenamento individual de arquivos.<br>",
+                    "(c) Um espaço dedicado dentro de uma equipe para organizar conversas e arquivos por tópico. <br>",
+                    "(d) Uma ferramenta para agendar tarefas individuais.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ Canais são a estrutura fundamental dentro de uma equipe para organizar as discussões e os recursos relacionados a diferentes temas ou projetos."
+            },
+            {
+                pergunta: "Quantos tipos principais de canais existem no Teams por padrão?",
+                opcoes: [
+                    "(a) Um <br>",
+                    "(b) Três: Público, Privado e Compartilhado <br>",
+                    "(c) Dois: Padrão e Privado <br>",
+                    "(d) Ilimitados <br>"
+
+                ],
+                correta: 2,
+                feedback: "✅Por padrão, o Teams oferece canais padrão (abertos a todos os membros da equipe) e canais privados (acessíveis a um subconjunto específico)."
+            },
+            {
+                pergunta: "Como você inicia uma conversa privada com um colega no Teams? ",
+                opcoes: [
+                    "(a) Publicando uma mensagem em um canal geral e mencionando o colega.<br>",
+                    "(b) Clicando no ícone de 'Novo chat' e digitando o nome do colega.<br>",
+                    "(c) Enviando um e-mail diretamente pelo Teams.<br>",
+                    "(d) Criando um novo canal privado com apenas vocês dois.<br>"
+
+                ],
+                correta: 1,
+                feedback: "✅ O ícone de 'Novo chat' direciona para a criação de uma conversa individual e direta com outro membro do Teams."
+            },
+            {
+                pergunta: "É possível realizar chamadas de vídeo e áudio diretamente pelo Microsoft Teams? ",
+                opcoes: [
+                    "(a) Sim. <br>",
+                    "(b) Não, é necessário um aplicativo adicional. <br>",
+                    "(c) Apenas chamadas de áudio são possíveis. <br>",
+                    "(d) Apenas chamadas de vídeo são possíveis.<br>"
+
+                ],
+                correta: 0,
+                feedback: "✅ O Teams possui funcionalidades integradas para chamadas de áudio e vídeo, essenciais para reuniões virtuais e comunicação em tempo real."
+
+            },
+            {
+                pergunta: "Qual das seguintes opções é a maneira mais comum de compartilhar um arquivo com sua equipe em um canal do Teams? ",
+                opcoes: [
+                    "(a) Enviando o arquivo por e-mail para todos os membros da equipe.<br>",
+                    "(b) Compartilhando um link para o seu armazenamento pessoal na nuvem.<br>",
+                    "(c) Clicando no ícone de clipe de papel abaixo da caixa de mensagem ou arrastando e soltando o arquivo.<br>",
+                    "(d) Imprimindo o arquivo e entregando cópias físicas.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ O ícone de clipe de papel e a funcionalidade de arrastar e soltar são as formas mais diretas de anexar e compartilhar arquivos dentro de um canal."
+            },
+            {
+                pergunta: "Onde os arquivos compartilhados em um canal do Teams são armazenados por padrão?",
+                opcoes: [
+                    "(a) No seu computador local.<br>",
+                    "(b) No OneDrive pessoal de quem compartilhou.<br>",
+                    "(c) Em uma pasta do SharePoint associada àquela equipe. <br>",
+                    "(d) Em um servidor de arquivos da rede local. <br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ A integração com o SharePoint garante um armazenamento centralizado e seguro para os arquivos da equipe, facilitando a colaboração."
+            },
+            {
+                pergunta: "O que são 'guias' em um canal do Teams? ",
+                opcoes: [
+                    "(a) Mensagens fixadas no topo do canal.<br>",
+                    "(b) Notificações importantes marcadas como favoritas.<br>",
+                    "(c) Seções adicionais na parte superior de um canal que podem conter aplicativos, arquivos, sites ou outros conteúdos relevantes.<br>",
+                    "(d) A lista de membros da equipe.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ Guias expandem a funcionalidade de um canal, permitindo o acesso rápido a recursos e ferramentas importantes para o trabalho da equipe."
+            },
+            {
+                pergunta: "Como você menciona um colega específico em uma conversa do Teams para garantir que ele veja sua mensagem?",
+                opcoes: [
+                    "(a) Usando negrito no nome do colega. <br>",
+                    "(b) Enviando uma mensagem privada separada.<br>",
+                    "(c) Usando o símbolo '@' seguido do nome do colega.<br>",
+                    "(d) Adicionando o colega como favorito na conversa.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ A menção com '@' envia uma notificação direta para o usuário marcado, destacando a mensagem para ele"
+            },
+            {
+                pergunta: "O que acontece quando você clica no ícone de 'reação' em uma mensagem do Teams? ",
+                opcoes: [
+                    "(a) Uma pequena notificação visual da sua reação é adicionada à mensagem, visível para os outros membros. <br>",
+                    "(b) A mensagem é automaticamente excluída.<br>",
+                    "(c) Uma mensagem privada é enviada para o autor da mensagem.<br>",
+                    "(d) A mensagem é marcada como não lida para você.<br>"
+
+                ],
+                correta: 0,
+                feedback: "✅Reações são uma forma rápida e visual de expressar feedback sem a necessidade de escrever uma resposta completa."
+            },
+            {
+                pergunta: "É possível personalizar as notificações do Microsoft Teams? ",
+                opcoes: [
+                    "(a) Sim. <br>",
+                    "(b) Não, as notificações são globais e fixas.<br>",
+                    "(c) Apenas administradores podem personalizar as notificações.<br>",
+                    "(d) A personalização de notificações é um recurso pago.<br>"
+
+                ],
+                correta: 0,
+                feedback: "✅ O Teams oferece diversas opções para personalizar as notificações, permitindo que os usuários ajustem quais alertas são mais relevantes para seu fluxo de trabalho."
+            },
+            {
+                pergunta: " Qual é a função principal da aba 'Atividade' no Microsoft Teams?  ",
+                opcoes: [
+                    "(a) Mostrar a lista de todos os seus contatos.<br>",
+                    "(b) Permitir criar novas equipes e canais.<br>",
+                    "(c) Mostrar um resumo das suas notificações, menções e outras atividades importantes em todos os seus times e canais.<br>",
+                    "(d) Acessar as configurações do seu perfil.<br>"
+
+                ],
+                correta: 2,
+                feedback: "✅ A aba 'Atividade' centraliza as informações importantes, facilitando o acompanhamento das interações e novidades nas suas equipes."
+            },
+            {
+                pergunta: "O Microsoft Teams pode ser usado em quais tipos de dispositivos? ",
+                opcoes: [
+                    "(a) Apenas em computadores desktop.<br>",
+                    "(b) Apenas em dispositivos móveis. <br>",
+                    "(c) Apenas em tablets. <br>",
+                    "(d) Em computadores desktop, dispositivos móveis e tablets.<br>"
+
+                ],
+                correta: 3,
+                feedback: "✅ O Teams é uma plataforma versátil com aplicativos disponíveis para diversas plataformas, garantindo acesso em diferentes dispositivos."
+
+            },
+            {
+                pergunta: " O que o recurso de 'reunião agendada' no Teams permite fazer?",
+                opcoes: [
+                    "(a) Iniciar uma reunião instantânea sem convites.<br>",
+                    "(b) Marcar uma reunião com data, hora, participantes e pauta específicos, enviando convites.<br>",
+                    "(c) Gravar uma reunião que já aconteceu.<br>",
+                    "(d) Compartilhar a tela durante uma conversa de chat.<br>"
+
+                ],
+                correta: 1,
+                feedback: "✅  O agendamento de reuniões é essencial para planejar encontros virtuais com antecedência e garantir a participação dos membros necessários."
+            },
+            {
+                pergunta: "  Além de chat e videoconferências, qual outro recurso básico o Microsoft Teams oferece para colaboração em documentos?",
+                opcoes: [
+                    "(a) A tradução automática de documentos.<br>",
+                    "(b) A criptografia avançada de arquivos.<br>",
+                    "(c) A capacidade de coeditar documentos do Microsoft Office em tempo real. <br>",
+                    "(d) O versionamento automático ilimitado de arquivos.<br>"
+
+                ],
+                correta: 1,
+                feedback: "✅ A coedição em tempo real facilita a colaboração simultânea em documentos, agilizando o trabalho em equipe e evitando conflitos de versões."
+            },
+
+
+
+
+        ];
+
+        let indiceAtual = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = "<p>🎉 Você concluiu o quiz!</p>";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        let acertos = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+                acertos++;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = `<p>🎉 Você concluiu o quiz!<br>Acertos: ${acertos} de ${perguntas.length}<br>Pontuação: ${Math.round((acertos / perguntas.length) * 100)}%</p>`;
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        carregarPergunta();
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <footer class="footer">
+        <p>&copy; Desenvolvedora Renatha Loiza Monteiro e Silva.</p>
+        <p><span id="year">2025.</span></p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUIZ Office Básico</title>
+    <link rel="icon" href="https://tse2.mm.bing.net/th?id=OIP.MuT9UvF1TZActoHYdMpMIAHaHa&pid=Api&P=0&h=180">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .barra-tarefas {
+            background-color: #FF7F50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .barra-tarefas a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* max-width: 800px;*/
+            margin: auto;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #FF7F50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="barra-tarefas">
+            <a href="index.html">Início</a>
+            <a href="quizWord.html">Word</a>
+            <a href="quizExcel.html">Excel</a>
+            <a href="quizPowerPoint.html">PowerPoint</a>
+            <a href="quizPlanner.html">Planner</a>
+            <a href="quizTeams.html">Teams</a>
+            <a href="quizSharePoint.html">SharePoint</a>
+            <a href="quizOutlook.html">Outlook</a>
+            <a href="quizOneDrive.html">OneDrive</a>
+
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h2>Quiz Interativo - Excel Online</h2>
+        <div id="quiz"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "Qual é a principal finalidade do Microsoft Excel?",
+                opcoes: [
+                    "(a) Criar apresentações de slides dinâmicas.",
+                    "(b) Gerenciar e-mails e calendários.",
+                    "(c) Organizar, analisar e manipular dados em planilhas.",
+                    "(d) Editar documentos de texto complexos."
+                ],
+                correta: 2,
+                feedback: "✅  O Excel é uma ferramenta poderosa para trabalhar com dados numéricos e textuais em formato de planilha, permitindo cálculos, análises e visualizações."
+            },
+            {
+                pergunta: "No Excel, como são identificadas as colunas em uma planilha por padrão?",
+                opcoes: [
+                    "(a) Por números (1, 2, 3...).",
+                    "(b) Por letras (A, B, C...).",
+                    "(c) Por algarismos romanos (I, II, III...).",
+                    "(d) Por combinações de números e letras (A1, B2, C3...)."
+                ],
+                correta: 1,
+                feedback: "✅As colunas são rotuladas alfabeticamente, facilitando a referência e a organização dos dados. As colunas são identificadas por letras (A, B, C...)."
+            },
+            {
+                pergunta: "No Excel, como são identificadas as linhas em uma planilha por padrão?",
+                opcoes: [
+                    "(a) Por números (1, 2, 3...).",
+                    "(b) Por letras (A, B, C...).",
+                    "(c) Por algarismos romanos (I, II, III...).",
+                    "(d) Por combinações de números e letras (A1, B2, C3...)."
+                ],
+                correta: 0,
+                feedback: "✅ As linhas são numeradas sequencialmente, complementando a identificação alfabética das colunas para formar as referências de célula.."
+            },
+            {
+                pergunta: "O que é uma 'célula' no Excel?",
+                opcoes: [
+                    "(a) Uma linha inteira da planilha.<br>",
+                    "(b) Uma coluna inteira da planilha.<br>",
+                    "(c) A interseção de uma linha e uma coluna, onde os dados são inseridos.<br>",
+                    "(d) Um conjunto de planilhas dentro de uma pasta de trabalho.<br>"
+                ],
+                correta: 2,
+                feedback: "✅ A célula é a unidade fundamental de uma planilha do Excel, onde cada dado individual é armazenado."
+
+            },
+            {
+                pergunta: "Como você se refere a uma célula específica na planilha do Excel?",
+                opcoes: [
+                    "(a) Pelo seu valor contido.<br>",
+                    "(b) Pela combinação da letra da coluna e do número da linha (ex: A1, B5, C10).<br>",
+                    "(c) Pela sua posição sequencial na planilha.<br>",
+                    "(d) Pelo nome que você pode atribuir a ela.<br>"
+                ],
+                correta: 1,
+                feedback: "✅ A referência de célula é a notação padrão para identificar unicamente cada célula dentro de uma planilha."
+
+            },
+            {
+                pergunta: "Qual símbolo é usado para iniciar uma fórmula no Excel? ",
+                opcoes: [
+                    "(a) # <br>",
+                    "(b) $ <br>",
+                    "(c) = <br>",
+                    "(d) & <br>"
+                ],
+                correta: 2,
+                feedback: "✅  O sinal de igual (=) indica ao Excel que a sequência de caracteres que se segue é uma fórmula a ser calculada."
+            },
+            {
+                pergunta: "Qual das seguintes é uma fórmula básica para somar os valores das células A1 e A2 no Excel?",
+                opcoes: [
+                    "(a) SOMA(A1:A2) <br>",
+                    "(b) =A1+A2 <br>",
+                    "(c) A1+A2= <br>",
+                    "(d) ADD(A1,A2) <br>"
+                ],
+                correta: 1,
+                feedback: "✅ A fórmula =A1+A2 realiza a operação de adição diretamente entre os valores contidos nas células A1 e A2."
+
+            },
+            {
+                pergunta: "Qual função do Excel é comumente usada para calcular a média de um conjunto de números? ",
+                opcoes: [
+                    "(a) SOMA() <br>",
+                    "(b) CONT.NÚM() <br>",
+                    "(c) MÉDIA() <br>",
+                    "(d) MÁX() <br>"
+                ],
+                correta: 2,
+                feedback: "✅ A função MÉDIA() calcula a média aritmética dos valores fornecidos como argumentos."
+            },
+            {
+                pergunta: "O que é um 'intervalo' de células no Excel? ",
+                opcoes: [
+                    "(a) Uma única célula selecionada. <br>",
+                    "(b) Um grupo de células adjacentes selecionadas (ex: A1:C5).<br>",
+                    "(c) Todas as células que contêm números. <br>",
+                    "(d) Todas as células formatadas com uma cor específica. <br>"
+                ],
+                correta: 2,
+                feedback: "✅ Um intervalo de células permite referenciar um bloco de dados para aplicar fórmulas, formatações ou outras operações."
+
+            },
+            {
+                pergunta: "Qual ferramenta do Excel permite criar representações visuais dos seus dados, como gráficos de barras ou de pizza? ",
+                opcoes: [
+                    "(a) Formatação Condicional <br>",
+                    "(b) Validação de Dados <br>",
+                    "(c) Inserir > Gráficos <br>",
+                    "(d) Classificar e Filtrar <br>"
+                ],
+                correta: 2,
+                feedback: "✅  A seção 'Gráficos' na guia 'Inserir' oferece diversas opções para criar visualizações que facilitam a compreensão e a análise dos dados."
+
+            },
+            {
+                pergunta: " O que a 'Formatação Condicional' permite fazer no Excel?  ",
+                opcoes: [
+                    "(a) Alterar a estrutura das colunas e linhas.<br>",
+                    "(b) Aplicar formatação especial às células com base em determinadas condições ou regras.<br>",
+                    "(c) Inserir fórmulas automaticamente em um intervalo de células.<br>",
+                    "(d) Proteger a planilha contra edições não autorizadas.<br>"
+                ],
+                correta: 1,
+                feedback: "✅ A Formatação Condicional destaca visualmente informações importantes nos seus dados, tornando padrões e tendências mais evidentes."
+
+            },
+            {
+                pergunta: " Qual das seguintes opções descreve a ação de 'filtrar' dados no Excel?   ",
+                opcoes: [
+                    "(a) Organizar os dados em ordem crescente ou decrescente.<br>",
+                    "(b) Exibir apenas as linhas que atendem a critérios específicos.<br>",
+                    "(c) Calcular automaticamente subtotais para grupos de dados.<br>",
+                    "(d) Remover linhas duplicadas da planilha.<br>"
+                ],
+                correta: 1,
+                feedback: "✅  A filtragem permite focar em um subconjunto relevante dos seus dados, ocultando temporariamente as informações que não atendem aos critérios definidos."
+
+            },
+            {
+                pergunta: "O que é uma 'pasta de trabalho' no Excel?   ",
+                opcoes: [
+                    "(a) Uma única planilha.<br>",
+                    "(b) O arquivo que contém uma ou mais planilhas relacionadas.<br>",
+                    "(c) Um conjunto de gráficos criados a partir dos dados.<br>",
+                    "(d) Um modelo predefinido para criar planilhas específicas.<br>"
+                ],
+                correta: 1,
+                feedback: "✅  A pasta de trabalho é o arquivo principal do Excel, onde você pode organizar várias planilhas para diferentes conjuntos de dados ou análises."
+
+
+            },
+            {
+                pergunta: " Qual função do Excel é usada para contar o número de células em um intervalo que contêm números? ",
+                opcoes: [
+                    "(a) CONT.VALORES()<br>",
+                    "(b) CONT.NÚM() <br>",
+                    "(c) CONT.SE() <br>",
+                    "(d) CONTAR.VAZIO()<br>"
+                ],
+                correta: 1,
+                feedback: "✅  A função CONT.NÚM() específica para contar apenas as células que contêm valores numéricos dentro do intervalo especificado."
+
+            },
+            {
+                pergunta: " Qual símbolo é usado no Excel para tornar uma referência de célula 'absoluta', ou seja, que não se altera ao copiar a fórmula para outras células? ",
+                opcoes: [
+                    "(a) # **<br>",
+                    "(b) $** <br>",
+                    "(c) = <br>",
+                    "(d) & <br>"
+                ],
+                correta: 1,
+                feedback: "✅ ** O símbolo de dólar ($) antes da letra da coluna e/ou do número da linha (ex: $A$1) fixa essa referência, impedindo que ela seja ajustada automaticamente durante a cópia de fórmulas."
+            },
+        ];
+
+        let indiceAtual = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = "<p>🎉 Você concluiu o quiz!</p>";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+        let acertos = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+                acertos++;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = `<p>🎉 Você concluiu o quiz!<br>Acertos: ${acertos} de ${perguntas.length}<br>Pontuação: ${Math.round((acertos / perguntas.length) * 100)}%</p>`;
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        carregarPergunta();
+
+
+        // Iniciar quiz
+        //carregarPergunta();
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <footer class="footer">
+        <p>&copy; Desenvolvedora Renatha Loiza Monteiro e Silva.</p>
+        <p><span id="year">2025.</span></p>
+    </footer>
+</body>
+
+</html>

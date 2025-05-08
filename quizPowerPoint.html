@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUIZ PowerPoint</title>
+    <link rel="icon" href="https://tse2.mm.bing.net/th?id=OIP.MuT9UvF1TZActoHYdMpMIAHaHa&pid=Api&P=0&h=180">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .barra-tarefas {
+            background-color: #FF7F50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .barra-tarefas a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* max-width: 800px;*/
+            margin: auto;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #FF7F50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="barra-tarefas">
+            <a href="index.html">Início</a>
+            <a href="quizWord.html">Word</a>
+            <a href="quizExcel.html">Excel</a>
+            <a href="quizPowerPoint.html">PowerPoint</a>
+            <a href="quizPlanner.html">Planner</a>
+            <a href="quizTeams.html">Teams</a>
+            <a href="quizSharePoint.html">SharePoint</a>
+            <a href="quizOutlook.html">Outlook</a>
+            <a href="quizOneDrive.html">OneDrive</a>
+
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h2>Quiz Interativo - PowerPoint Online</h2>
+        <div id="quiz"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const perguntas = [
+
+            {
+                pergunta: "Qual é a principal finalidade do Microsoft PowerPoint? ",
+                opcoes: [
+                    "(a) Criar apresentações visuais com slides contendo texto, imagens e outros elementos.<br>",
+                    "(b) Editar documentos de texto extensos.<br>",
+                    "(c) Analisar dados numéricos em planilhas. <br>",
+                    "(d) Gerenciar e-mails e calendários. <br>"
+                ],
+                correta: 0,
+                feedback: "✅ O PowerPoint é projetado para ajudar a comunicar ideias de forma visual e organizada através de apresentações de slides."
+            },
+            {
+                pergunta: " No PowerPoint, como é chamada a unidade básica de uma apresentação?  ",
+                opcoes: [
+                    "(a) Página <br>",
+                    "(b) Quadro <br>",
+                    "(c) Slide <br>",
+                    "(d) Cartão <br>"
+                ],
+                correta: 2,
+                feedback: "✅Um slide é uma tela individual dentro de uma apresentação do PowerPoint que contém informações."
+
+            },
+            {
+                pergunta: "  Qual guia da faixa de opções (Ribbon) é geralmente usada para adicionar novos slides à sua apresentação? ",
+                opcoes: [
+                    "(a) Design <br>",
+                    "(b) Início <br>",
+                    "(c) Inserir <br>",
+                    "(d) Exibir <br>"
+                ],
+                correta: 1,
+                feedback: "✅A guia 'Início' contém comandos essenciais para trabalhar com slides, incluindo a opção de adicionar novos slides."
+            },
+            {
+                pergunta: "Qual das seguintes opções é um tipo de layout de slide comum no PowerPoint?",
+                opcoes: [
+                    "(a) Grade em branco <br>",
+                    "(b) Colunas múltiplas <br>",
+                    "(c) Título e Conteúdo <br>",
+                    "(d) Tabela dinâmica <br>"
+                ],
+                correta: 2,
+                feedback: "✅O layout 'Título e Conteúdo' é um dos mais básicos e frequentemente utilizados para organizar informações em um slide."
+
+            },
+            {
+                pergunta: "Como você insere uma imagem em um slide do PowerPoint? ",
+                opcoes: [
+                    "(a) Arrastando e soltando diretamente da área de trabalho.<br>",
+                    "(b) Copiando e colando de outro aplicativo. <br>",
+                    "(c) Usando a guia 'Inserir' e selecionando 'Imagens'.<br>",
+                    "(d) Digitando o nome do arquivo da imagem diretamente no slide.<br>"
+                ],
+                correta: 2,
+                feedback: "✅A guia 'Inserir' é o local onde você encontra as ferramentas para adicionar diversos tipos de mídia, incluindo imagens, aos seus slides."
+            },
+            {
+                pergunta: " Qual recurso do PowerPoint permite adicionar movimento e efeitos visuais aos elementos dos seus slides (texto, imagens, etc.)?",
+                opcoes: [
+                    "(a) Transições <br>",
+                    "(b) Animações <br>",
+                    "(c) Temas <br>",
+                    "(d) SmartArt <br>"
+                ],
+                correta: 1,
+                feedback: "✅As animações controlam como os elementos aparecem, desaparecem ou se movem dentro de um mesmo slide."
+
+            },
+            {
+                pergunta: "Qual recurso do PowerPoint controla como um slide se move para o próximo durante a apresentação? ",
+                opcoes: [
+                    "(a) Transições <br>",
+                    "(b) Animações <br>",
+                    " (c) Formatos de plano de fundo <br>",
+                    " (d) Estilos de forma <br>"
+                ],
+                correta: 0,
+                feedback: "✅ As transições são os efeitos visuais que ocorrem quando você avança de um slide para o seguinte."
+            },
+            {
+                pergunta: "O que são 'Temas' no PowerPoint?  ",
+                opcoes: [
+                    "(a) Conjuntos de animações predefinidas. <br>",
+                    "(b) Modelos de slides com conteúdo de exemplo.<br>",
+                    " (c) Conjuntos de designs predefinidos que incluem cores, fontes e efeitos.<br>",
+                    " (d) Ferramentas para criar gráficos e diagramas.<br>"
+                ],
+                correta: 2,
+                feedback: "✅Os temas oferecem uma maneira rápida e consistente de aplicar um design visual profissional a toda a sua apresentação."
+
+            },
+            {
+                pergunta: "Como você inicia a apresentação de slides no PowerPoint? ",
+                opcoes: [
+                    "(a) Clicando em 'Arquivo' > 'Imprimir'. <br>",
+                    "(b) Clicando duas vezes em um slide na visualização normal. <br>",
+                    "(c) Pressionando a tecla F5 ou clicando no botão 'Apresentação de Slides' na barra de status.<br>",
+                    "(d) Clicando com o botão direito em um slide e selecionando 'Editar Slide'. <br>"
+                ],
+                correta: 2,
+                feedback: "✅ A tecla F5 e o botão na barra de status são os métodos mais comuns para iniciar a exibição da sua apresentação em tela cheia."
+            },
+            {
+                pergunta: " Qual visualização do PowerPoint é mais adequada para reorganizar a ordem dos seus slides? ",
+                opcoes: [
+                    "(a) Visualização Normal <br>",
+                    "(b) Classificador de Slides <br>",
+                    "(c) Página de Anotações <br>",
+                    "(d) Estrutura de Tópicos <br>"
+                ],
+                correta: 1,
+                feedback: "✅  O Classificador de Slides exibe miniaturas de todos os seus slides, facilitando a reorganização através de arrastar e soltar."
+
+            },
+            {
+                pergunta: "O que são 'Apresentações de Slides Personalizadas'?  ",
+                opcoes: [
+                    "(a) Apresentações com animações e transições exclusivas.<br>",
+                    "(b) Apresentações criadas usando modelos online.<br>",
+                    "(c) Subconjuntos de slides de uma apresentação principal que podem ser exibidos separadamente. <br>",
+                    "(d) Apresentações que são salvas em um formato de vídeo.<br>"
+                ],
+                correta: 2,
+                feedback: "✅ As apresentações personalizadas permitem criar versões menores e focadas da sua apresentação principal para diferentes públicos ou propósitos."
+            },
+            {
+                pergunta: "Qual recurso do PowerPoint permite adicionar notas que o apresentador pode ver durante a apresentação, mas que não são exibidas para o público?",
+                opcoes: [
+                    "(a) Comentários <br>",
+                    "(b) Anotações do Orador <br>",
+                    "(c) Legendas <br>",
+                    "(d) Marcações de tinta <br>"
+                ],
+                correta: 1,
+                feedback: "✅ As Anotações do Orador são um recurso valioso para ajudar o apresentador a lembrar de pontos importantes durante a apresentação."
+
+            },
+            {
+                pergunta: "É possível inserir vídeos em uma apresentação do PowerPoint?",
+                opcoes: [
+                    "(a) Sim. <br>",
+                    "(b) Não, apenas imagens e áudio são suportados.<br>",
+                    "(c) Apenas vídeos do YouTube podem ser inseridos. <br>",
+                    "(d) A inserção de vídeos requer um plugin adicional.<br>"
+                ],
+                correta: 0,
+                feedback: "✅O PowerPoint permite inserir vídeos de arquivos locais ou online para tornar a apresentação mais dinâmica e informativa."
+
+            },
+            {
+                pergunta: "Qual formato de arquivo é o formato padrão para salvar uma apresentação do PowerPoint que pode ser editada? ",
+                opcoes: [
+                    "(a) .PDF <br>",
+                    "(b) .JPG <br>",
+                    "(c) .MP4 <br>",
+                    "(d) .PPTX <br>"
+                ],
+                correta: 3,
+                feedback: "✅ O formato .PPTX é a extensão padrão para arquivos de apresentação do PowerPoint que preservam todas as funcionalidades de edição."
+
+            },
+            {
+                pergunta: "Qual guia da faixa de opções você usaria para adicionar texto a um slide, caso o layout selecionado não possua um espaço reservado para texto? ",
+                opcoes: [
+                    "(a) Design <br>",
+                    "(b) Exibir <br>",
+                    "(c) Inserir <br>",
+                    "(d) Formatar <br>"
+                ],
+                correta: 2,
+                feedback: "✅ A guia 'Inserir' contém a ferramenta 'Caixa de Texto', que permite adicionar texto em qualquer lugar do seu slide, independentemente do layout."
+            },
+
+
+        ];
+
+        let indiceAtual = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = "<p>🎉 Você concluiu o quiz!</p>";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        let acertos = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+                acertos++;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = `<p>🎉 Você concluiu o quiz!<br>Acertos: ${acertos} de ${perguntas.length}<br>Pontuação: ${Math.round((acertos / perguntas.length) * 100)}%</p>`;
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        carregarPergunta();
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <footer class="footer">
+        <p>&copy; Desenvolvedora Renatha Loiza Monteiro e Silva.</p>
+        <p><span id="year">2025.</span></p>
+    </footer>
+</body>
+
+</html>

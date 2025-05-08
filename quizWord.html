@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QUIZ Word</title>
+    <link rel="icon" href="https://tse2.mm.bing.net/th?id=OIP.MuT9UvF1TZActoHYdMpMIAHaHa&pid=Api&P=0&h=180">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+
+        }
+
+        .barra-tarefas {
+            background-color: #FF7F50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .barra-tarefas a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .quiz-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* max-width: 800px;*/
+            margin: auto;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .options label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            background-color: #FF7F50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="barra-tarefas">
+            <a href="index.html">Início</a>
+            <a href="quizWord.html">Word</a>
+            <a href="quizExcel.html">Excel</a>
+            <a href="quizPowerPoint.html">PowerPoint</a>
+            <a href="quizPlanner.html">Planner</a>
+            <a href="quizTeams.html">Teams</a>
+            <a href="quizSharePoint.html">SharePoint</a>
+            <a href="quizOutlook.html">Outlook</a>
+            <a href="quizOneDrive.html">OneDrive</a>
+
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <h2>Quiz Interativo - Word Online</h2>
+        <div id="quiz"></div>
+        <button onclick="proximaPergunta()">Próxima</button>
+        <div id="result"></div>
+    </div>
+
+
+    <script>
+        const perguntas = [
+            {
+                pergunta: "Qual é a principal finalidade do Microsoft Word?  ",
+                opcoes: [
+                    "(a) Criar, editar e formatar documentos de texto.<br>",
+                    "(b) Analisar dados numéricos em planilhas.<br>",
+                    "(c) Criar apresentações de slides visuais.<br>",
+                    "(d) Gerenciar e-mails e calendários.<br>",
+                ],
+                correta: 0,
+                feedback: "✅ O Word é um processador de texto projetado para trabalhar com documentos textuais de diversas formas."
+            },
+            {
+                pergunta: " Qual é a unidade básica de um documento do Word onde você digita o texto?",
+                opcoes: [
+                    "(a) Célula<br>",
+                    "(b) Slide <br>",
+                    "(c) Página<br>",
+                    "(d) Quadro <br> "
+                ],
+                correta: 2,
+                feedback: "✅ Uma página é a unidade fundamental de um documento do Word, onde o conteúdo textual é organizado."
+
+            },
+            {
+                pergunta: "Qual guia da faixa de opções (Ribbon) é geralmente usada para alterar a fonte, o tamanho e a cor do texto? ?",
+                opcoes: [
+                    "(a) Início <br>",
+                    "(b) Inserir <br>",
+                    "(c) Layout <br>",
+                    "(d) Exibir <br>"
+                ],
+                correta: 0,
+                feedback: "✅  A guia 'Início' contém os comandos mais comuns para formatação de texto, como fonte, tamanho, cor, alinhamento e estilos"
+            },
+            {
+                pergunta: "Qual das seguintes opções é uma forma de selecionar uma palavra inteira no Word rapidamente?",
+                opcoes: [
+                    "(a) Clicar uma vez na palavra. <br>",
+                    "(b) Dar um duplo clique na palavra. <br>",
+                    "(c) Arrastar o cursor sobre a palavra.<br>",
+                    "(d) Pressionar Ctrl + clicar na palavra.<br>"
+                ],
+                correta: 1,
+                feedback: "✅  Um duplo clique é um atalho eficiente para selecionar uma palavra inteira."
+
+
+            },
+            {
+                pergunta: "Como você insere uma imagem em um documento do Word? ?",
+                opcoes: [
+                    "(a) Apenas copiando e colando de outro aplicativo. <br>",
+                    "(b) Usando a guia 'Inserir' e selecionando 'Imagens'. <br>",
+                    "(c) Arrastando e soltando diretamente da área de trabalho (nem sempre funciona dependendo da versão e configuração).<br>",
+                    "(d) Digitando o nome do arquivo da imagem diretamente no documento.<br>"
+                ],
+                correta: 1,
+                feedback: "✅  A guia 'Inserir' é o local onde você encontra as ferramentas para adicionar diversos elementos multimídia, incluindo imagens."
+
+            },
+            {
+                pergunta: "Qual recurso do Word permite verificar erros de ortografia e gramática no seu documento?",
+                opcoes: [
+                    "(a) Autocorreção  <br>",
+                    "(b) Ortografia e Gramática  <br>",
+                    "(c) Dicionário de Sinônimos <br>",
+                    "(d) Contagem de Palavras <br>"
+                ],
+                correta: 1,
+                feedback: "✅A ferramenta 'Ortografia e Gramática', geralmente acessível pela guia 'Revisão', analisa o texto em busca de erros."
+            },
+            {
+                pergunta: "O que é um 'parágrafo' no Word? ",
+                opcoes: [
+                    "(a) Uma linha de texto. <br>",
+                    "(b) Um conjunto de frases relacionadas com a mesma formatação.<br>",
+                    "(c) Um bloco de texto que termina com a tecla Enter.<br>",
+                    "(d) Uma seção do documento delimitada por títulos.<br>"
+                ],
+                correta: 2,
+                feedback: "✅ O Word reconhece um parágrafo quando a tecla Enter é pressionada, inserindo uma marca de parágrafo."
+            },
+            {
+                pergunta: "Qual recurso do Word permite criar listas com marcadores (bolinhas) ou números? ",
+                opcoes: [
+                    "(a) Recuo e Avanço <br>",
+                    "(b) Marcadores e Numeração <br>",
+                    "(c) Alinhamento de Texto <br>",
+                    "(d) Estilos Rápidos <br>"
+                ],
+                correta: 1,
+                feedback: "✅  As opções de 'Marcadores' e 'Numeração' na guia 'Início' facilitam a criação de listas organizadas."
+            },
+            {
+                pergunta: "Como você salva um documento do Word pela primeira vez?  ",
+                opcoes: [
+                    "(a) Clicando no ícone de disquete (Salvar).<br>",
+                    "(b) Pressionando Ctrl + S. <br>",
+                    "(c) Clicando em 'Arquivo' > 'Salvar'.<br>",
+                    "(d) Todas as opções acima geralmente abrem a caixa de diálogo Salvar Como...' na primeira vez. <br>"
+                ],
+                correta: 3,
+                feedback: "✅Na primeira vez que um documento é salvo, o Word precisa que você especifique o nome do arquivo, o tipo e o local de armazenamento."
+            },
+            {
+                pergunta: "Qual formato de arquivo é o formato padrão para salvar um documento do Word que pode ser editado?",
+                opcoes: [
+                    "(a) .TXT <br>",
+                    "(b) .PDF <br>",
+                    "(c) .RTF <br>",
+                    "(d) .DOCX <br>"
+                ],
+                correta: 3,
+                feedback: "✅O formato .DOCX é a extensão padrão para arquivos de documento do Microsoft Word, preservando toda a formatação e recursos.."
+
+            },
+            {
+                pergunta: "O que é a função 'Copiar e Colar' no Word?",
+                opcoes: [
+                    "(a) Mover um texto de um lugar para outro. <br>",
+                    "(b) Duplicar um texto ou objeto e inseri-lo em outro local. <br>",
+                    "(c) Excluir um texto e inseri-lo em outro local.<br>",
+                    "(d) Formatar um texto com base em outro texto.<br>"
+                ],
+                correta: 1,
+                feedback: "✅'Copiar' cria uma duplicata do conteúdo selecionado, enquanto 'Colar' insere essa cópia no local desejado."
+
+            },
+            {
+                pergunta: "O que é a função 'Recortar e Colar' no Word? ",
+                opcoes: [
+                    "(a) Remover um texto ou objeto de um local e inseri-lo em outro.<br>",
+                    "(b) Duplicar um texto ou objeto e inseri-lo em outro local.<br>",
+                    "(c) Alterar a formatação de um texto.<br>",
+                    "(d) Salvar o documento com um novo nome.<br>"
+                ],
+                correta: 0,
+                feedback: "✅'Recortar' remove o conteúdo selecionado do local original, e 'Colar' o insere em um novo local."
+            },
+            {
+                pergunta: " Qual recurso do Word permite desfazer a última ação realizada? ",
+                opções: [
+                    "(a) Refazer <br>",
+                    "(b) Desfazer <br>",
+                    "(c) Salvar <br>",
+                    "(d) Imprimir <br>"
+                ],
+                correta: 1,
+                feedback: "✅ O botão 'Desfazer' (geralmente uma seta curva apontando para a esquerda) permite reverter a ação mais recente."
+
+            },
+            {
+                pergunta: " O que são 'Estilos' no Word?",
+                opções: [
+                    "(a) Conjuntos de imagens predefinidas.<br>",
+                    "(b) Formas geométricas que podem ser inseridas. <br>",
+                    "(c) Conjuntos de formatação predefinidos (fonte, tamanho, alinhamento, etc.) que podem ser aplicados ao texto. <br>",
+                    "(d) Modelos de documentos com conteúdo de exemplo.<br>"
+                ],
+                correta: 2,
+                feedback: "✅Os estilos oferecem uma maneira rápida e consistente de formatar diferentes partes do seu documento, como títulos, subtítulos e corpo de texto."
+            },
+            {
+                pergunta: "  Qual guia da faixa de opções você usaria para ajustar as margens do seu documento? ",
+                opções: [
+                    "(a) Início <br>",
+                    "(b) Inserir <br>",
+                    "(c) Layout <br>",
+                    "(d) Revisão <br>"
+                ],
+                correta: 2,
+                feedback: "✅ A guia 'Layout' (em algumas versões pode ser chamada de 'Design de Página') contém as configurações relacionadas ao layout do documento, incluindo margens, orientação e tamanho do papel."
+
+            },
+
+        ];
+
+        let indiceAtual = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = "<p>🎉 Você concluiu o quiz!</p>";
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        let acertos = 0;
+
+        function carregarPergunta() {
+            const quizDiv = document.getElementById('quiz');
+            const perguntaAtual = perguntas[indiceAtual];
+
+            quizDiv.innerHTML = `
+        <div class="question">${indiceAtual + 1}. ${perguntaAtual.pergunta}</div>
+        <div class="options">
+          ${perguntaAtual.opcoes.map((opcao, index) => `
+            <label>
+              <input type="radio" name="opcao" value="${index}"> ${opcao}
+            </label>
+          `).join('')}
+        </div>
+      `;
+
+            document.getElementById('result').innerHTML = "";
+        }
+
+        function proximaPergunta() {
+            const selecionado = document.querySelector('input[name="opcao"]:checked');
+
+            if (!selecionado) {
+                alert("Por favor, selecione uma resposta.");
+                return;
+            }
+
+            const resposta = parseInt(selecionado.value);
+            const perguntaAtual = perguntas[indiceAtual];
+            const resultado = document.getElementById('result');
+
+            if (resposta === perguntaAtual.correta) {
+                resultado.innerHTML = perguntaAtual.feedback;
+                acertos++;
+            } else {
+                resultado.innerHTML = "❌ Resposta incorreta.<br>" + perguntaAtual.feedback;
+            }
+
+            indiceAtual++;
+
+            if (indiceAtual < perguntas.length) {
+                setTimeout(() => {
+                    carregarPergunta();
+                }, 2500);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz').innerHTML = `<p>🎉 Você concluiu o quiz!<br>Acertos: ${acertos} de ${perguntas.length}<br>Pontuação: ${Math.round((acertos / perguntas.length) * 100)}%</p>`;
+                    document.querySelector("button").style.display = "none";
+                    document.getElementById('result').innerHTML = "";
+                }, 2500);
+            }
+        }
+
+        carregarPergunta();
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <footer class="footer">
+        <p>&copy; Desenvolvedora Renatha Loiza Monteiro e Silva.</p>
+        <p><span id="year">2025.</span></p>
+    </footer>
+</body>
+
+</html>
