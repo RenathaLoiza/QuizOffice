@@ -84,11 +84,14 @@ Está aberto a colaborações! Caso tenha ideias, sugestões ou melhorias, envie
 ## 📬 Contato
 **Renatha Loiza Monteiro e Silva**  
 📧 renatha.loiza@email.com *(exemplo)*  
-🌐 [LinkedIn]([[https://www.linkedin.com/](https://www.linkedin.com/in/renatha-loiza-monteiro-e-silva)]) *(adicione seu link real)*
+🌐 [LinkedIn](https://www.linkedin.com/in/renatha-loiza-monteiro-e-silva)
 
 ---
 
 <p align="center">
   Feito com 💖 para promover o aprendizado digital <br>
+  <strong>&copy; 2025 - Todos os direitos reservados</strong>
+</p>
+
   <strong>&copy; 2025 - Todos os direitos reservados</strong>
 </p>
